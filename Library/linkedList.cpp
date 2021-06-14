@@ -22,7 +22,10 @@ public:
     }
     void insertBack(int d);             //  Insert to back
     void insertFront(int d);            //  Insert to front  
-    void insertAtIndex(int d,int i);    //  Insert at a index 
+    void insertAtIndex(int d,int t);    //  Insert at a index 
+    void popFront();
+    void popBack();
+    void popAtIndex(int t);
     void print();
 };
 
@@ -43,7 +46,7 @@ void List :: insertBack(int d){
     return;
 }
 
-//  Insert to back
+//  Insert to front
 void List :: insertFront(int d){
     Node* temp = new Node(d);
     if (count == 0){
@@ -87,10 +90,50 @@ void List :: print(){
     }
 }
 
+// Pop at front
+void List :: popFront(){
+    Node* temp = head;
+    head = head->next;
+    delete(temp);
+}
+
+// Pop at back
+void List :: popBack(){
+    Node* cursor = head;
+        while(cursor->next->next != nullptr){
+            cursor = cursor->next;
+        }
+    Node* temp = cursor->next;
+    cursor->next = nullptr;
+    delete(temp);
+}
+
+// Pop at index
+void List :: popAtIndex(int t){
+    if (t == 0){
+        popFront();
+    }
+    else if (t < count){
+        
+        Node* cursor = head;
+        int index = 0;
+        while (index != t-1){
+            cursor = cursor->next;
+            ++index;
+        }
+        Node* temp = cursor->next;
+        cursor->next= temp->next;
+        delete(temp);
+    }
+    else{
+        popBack(); // if the wanted to be pop index is larger than the number of elements in the list, pop back
+    }
+}
 int main(){
     List *myList = new List();
-    myList->insertFront(1);
-    myList->insertBack(0);
     myList->insertBack(1);
+    myList->insertBack(2);
+    myList->insertBack(3);
+    myList->popAtIndex(1);
     myList->print(); 
 }
