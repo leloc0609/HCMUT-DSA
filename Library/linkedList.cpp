@@ -92,6 +92,5 @@ int main(){
     myList->insertFront(1);
     myList->insertBack(0);
     myList->insertBack(1);
-    myList->insertAtIndex(2,0);
-    myList->print();
+    myList->print(); 
 }
